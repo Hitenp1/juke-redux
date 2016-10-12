@@ -10,7 +10,7 @@ import Album from '../components/Album';
 import Player from '../components/Player';
 
 import AlbumsContainer from '../../redux/AlbumsContainer';
-
+import { play, pause, load, startSong, toggleOne, toggle } from '../../redux/ReduxApp';
 
 const convertSong = song => {
   song.audioUrl = `/api/songs/${song.id}/audio`;
@@ -32,7 +32,24 @@ const skip = (interval, { currentSongList, currentSong }) => {
   return [next, currentSongList];
 };
 
-export default class AppContainer extends Component {
+const mapStateToProps = (state) => ({
+  currentSong: state.currentSong,
+  currentSongList: state.currentSongList,
+  isPlaying: state.isPlaying
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  play: () => dispatch(play()),
+  pause: () => dispatch(pause()),
+  load: (currentSong, currentSongList) => dispatch(load(currentSong, currentSongList)),
+  startSong: (song, list) => dispatch(startSong(song, list)),
+  toggleOne: (selectedSong, selectedSongList) => dispatch(toggleOne(selectedSong, selectedSongList)),
+  toggle: () => dispatch(toggle())
+
+})
+
+
+class AppContainer extends Component {
 
   constructor (props) {
     super(props);
@@ -57,39 +74,6 @@ export default class AppContainer extends Component {
 
   onLoad (album) {
     this.setState({ album });
-  }
-
-  play () {
-    AUDIO.play();
-    this.setState({ isPlaying: true });
-  }
-
-  pause () {
-    AUDIO.pause();
-    this.setState({ isPlaying: false });
-  }
-
-  load (currentSong, currentSongList) {
-    AUDIO.src = currentSong.audioUrl;
-    AUDIO.load();
-    this.setState({ currentSong, currentSongList });
-  }
-
-  startSong (song, list) {
-    this.pause();
-    this.load(song, list);
-    this.play();
-  }
-
-  toggleOne (selectedSong, selectedSongList) {
-    if (selectedSong.id !== this.state.currentSong.id)
-      this.startSong(selectedSong, selectedSongList);
-    else this.toggle();
-  }
-
-  toggle () {
-    if (this.state.isPlaying) this.pause();
-    else this.play();
   }
 
   next () {
@@ -119,19 +103,27 @@ export default class AppContainer extends Component {
           <AlbumsContainer />
         </div>
         <Player
-          currentSong={this.state.currentSong}
-          currentSongList={this.state.currentSongList}
-          isPlaying={this.state.isPlaying}
+          currentSong={this.props.currentSong}
+          currentSongList={this.props.currentSongList}
+          isPlaying={this.props.isPlaying}
           progress={this.state.progress}
           next={this.next}
           prev={this.prev}
-          toggle={this.toggle}
+          toggle={this.props.toggle}
           scrub={evt => this.seek(evt.nativeEvent.offsetX / evt.target.clientWidth)} 
         />
       </div>
     );
   }
 }
+
+const NewAppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AppContainer)
+
+export default NewAppContainer;
+
 
 
 //  <Album 

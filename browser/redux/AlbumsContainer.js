@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import Albums from './Albums';
-import {fetchAlbumsFromServer} from './ReduxApp'
+import { fetchAlbumsFromServer } from './ReduxApp'
 
 
 // Actions

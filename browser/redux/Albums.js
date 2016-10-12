@@ -1,12 +1,11 @@
 import React from 'react';
-import {fetchAlbumsFromServer} from './ReduxApp'
+import { fetchAlbumsFromServer } from './ReduxApp'
 
 class Albums extends React.Component {
 
-	componentDidMount () { // has loadAlbums on props, got it from AlbumsContainer via connect
-   		
+	componentDidMount () { // has loadAlbums on props, got it from AlbumsContainer via connect		
 		this.props.loadAlbums();
-  	}
+	}
 
 
 	render() {
