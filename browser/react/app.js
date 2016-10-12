@@ -7,8 +7,10 @@ import store from '../redux/ReduxApp';
 
 import { Provider } from 'react-redux';
 
+
 ReactDOM.render(
   <Provider store={store}>
   	<AppContainer />
-  </Provider>
+  </Provider>,
+  document.getElementById('app')
 );

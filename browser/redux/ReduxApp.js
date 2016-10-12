@@ -3,7 +3,6 @@ import { createStore } from 'redux';
 
 // Import Initial State
 import initialState from '../react/initialState';
-console.log(initialState);
 
 // const initialState = {
 //   albums: [],
@@ -20,7 +19,7 @@ const GET_ALBUMS_FROM_SERVER = 'GET_ALBUMS_FROM_SERVER';
 
 
 // Actions
-const getAlbumsFromServer = (albums) => ({
+export const getAlbumsFromServer = (albums) => ({
 
 	type: GET_ALBUMS_FROM_SERVER,
 	albums

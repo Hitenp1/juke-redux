@@ -1,13 +1,19 @@
 import { connect } from 'react-redux';
+import React from 'react';
+import Albums from './Albums';
+
+
+
+// Actions
+import { getAlbumsFromServer } from './ReduxApp';
 
 const mapStateToProps = (state, propsOnStatefulComponent) => ({	
 		albums: state.albums
 })
 
 const mapDispatchToProps = (dispatch, propsOnStatefulComponent) => ({
-	getAlbumsFromServer: (albums) => dispatch(getAlbumsFromServer(albums))
+	loadAlbums: (albums) => dispatch(getAlbumsFromServer(albums))
 })
-
 
 const AlbumsContainer = connect(
 	mapStateToProps,
