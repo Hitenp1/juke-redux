@@ -1,27 +1,12 @@
 import React from 'react';
+import {fetchAlbumsFromServer} from './ReduxApp'
 
 class Albums extends React.Component {
 
-	convertSong (song) {
-  	song.audioUrl = `/api/songs/${song.id}/audio`;
-  	return song;
-	}
-
-	convertAlbum (album) {
-	  album.imageUrl = `/api/albums/${album.id}/image`;
-	  album.songs = album.songs.map(song => this.convertSong(song));
-	  return album;
-	}
-
 	componentDidMount () { // has loadAlbums on props, got it from AlbumsContainer via connect
-    fetch('/api/albums')
-      .then(albumArr => {
-      	return albumArr.json()
-      })
-      .then(albumArrJSON => {
-      	return this.props.loadAlbums(albumArrJSON.map(album => this.convertAlbum(album)))
-      })
-  } // this = Albums
+   		
+		this.props.loadAlbums();
+  	}
 
 
 	render() {
