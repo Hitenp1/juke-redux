@@ -1,8 +1,10 @@
 import React from 'react';
-import { fetchAlbumsFromServer } from './ReduxApp'
+
+
 
 class Albums extends React.Component {
 
+  
 	componentDidMount () { // has loadAlbums on props, got it from AlbumsContainer via connect		
 		this.props.loadAlbums();
 	}
@@ -17,7 +19,7 @@ class Albums extends React.Component {
 			    	this.props.albums.map(album => (
 					    <div className="col-xs-4" key={ album.id }>
 					      <a className="thumbnail" href="#">
-					        <img src={ album.imageUrl } />
+					        <img src={ album.imageUrl } onClick={() => this.props.showAlbum(album)} />
 					        <div className="caption">
 					          <h5>
 					            <span>{ album.name }</span>

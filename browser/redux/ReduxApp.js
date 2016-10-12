@@ -44,6 +44,8 @@ const LOAD = 'LOAD';
 const START_SONG = 'START_SONG';
 const TOGGLE_ONE = 'TOGGLE_ONE';
 const TOGGLE = 'TOGGLE';
+const SHOW_ALBUM = 'SHOW_ALBUM';
+
 
 
 // Synchronous Actions
@@ -82,6 +84,12 @@ export const doToggle = () => {
 	type: TOGGLE
 }
 
+export const showAlbum = (album) => ({
+	type: SHOW_ALBUM,
+	album
+})
+
+
 
 // Async Actions
 
@@ -118,7 +126,7 @@ export const load = (currentSong, currentSongList) => {
 	}
 }
 
-export startSong = (song, list) => {
+export const startSong = (song, list) => {
 	return (dispatch) => {
 		dispatch(doPause());
 		dispatch(doLoad(song, list));
@@ -126,7 +134,7 @@ export startSong = (song, list) => {
 	}
 }
 
-export toggleOne = (selectedSong, selectedSongList) => {
+export const toggleOne = (selectedSong, selectedSongList) => {
 	return (dispatch, getState) => {
 		const { currentSong } = getState();
 		if (currentSong.id === selectedSong.id) {
@@ -137,7 +145,7 @@ export toggleOne = (selectedSong, selectedSongList) => {
 	}
 }
 
-export toggle = () => {
+export const toggle = () => {
 	return (dispatch, getState) => {
 		const { isPlaying } = getState();
 		if (isPlaying) {
@@ -167,7 +175,12 @@ const albumsReducer = (prevState = [], action) => {
 }
 
 const albumReducer = (prevState = {}, action) => {
-	return
+ 	switch (action.type) {
+ 		case "SHOW_ALBUM":
+ 			return action.album;
+ 		default:
+ 			return prevState;
+ 	}
 }
 
 const currentSongReducer = (prevState = {}, action) => {
@@ -199,9 +212,9 @@ const isPlayingReducer = (prevState = false, action) => {
 	}
 }
 
-const progressReducer = (prevState = 0, action) => {
-	return
-}
+// const progressReducer = (prevState = 0, action) => {
+// 	return
+// }
 
 // ROOT REDUCER
 const rootReducer = combineReducers({
@@ -210,7 +223,7 @@ const rootReducer = combineReducers({
 	currentSong: currentSongReducer,
 	currentSongList: currentSongListReducer,
 	isPlaying: isPlayingReducer,
-	progress: progressReducer
+	//progress: progressReducer
 })
 
 

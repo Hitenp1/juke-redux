@@ -12,6 +12,8 @@ import Player from '../components/Player';
 import AlbumsContainer from '../../redux/AlbumsContainer';
 import { play, pause, load, startSong, toggleOne, toggle } from '../../redux/ReduxApp';
 
+import {connect} from 'react-redux'; 
+
 const convertSong = song => {
   song.audioUrl = `/api/songs/${song.id}/audio`;
   return song;
@@ -55,9 +57,9 @@ class AppContainer extends Component {
     super(props);
     this.state = initialState;
     
-    this.toggle = this.toggle.bind(this);
-    this.toggleOne = this.toggleOne.bind(this);
-    this.next = this.next.bind(this);
+    //this.toggle = this.toggle.bind(this);
+   // this.toggleOne = this.toggleOne.bind(this);
+   this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
   }
 
@@ -126,9 +128,10 @@ export default NewAppContainer;
 
 
 
-//  <Album 
-//   album={this.state.album} 
-//   currentSong={this.state.currentSong}
-//   isPlaying={this.state.isPlaying}
-//   toggle={this.toggleOne}
-// />
+
+     // <Album 
+     //      album={this.props.album}
+     //      currentSong={this.props.currentSong}
+     //      isPlaying={this.props.isPlaying}
+     //      toggleOne={this.props.toggleOne} />
+
